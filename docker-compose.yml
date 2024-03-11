@@ -1,0 +1,35 @@
+services:
+  insurance-rest:
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - PGUSER=insura_usr
+      - POSTGRES_DB=insura_db
+      - POSTGRES_HOST=postgres
+
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+
