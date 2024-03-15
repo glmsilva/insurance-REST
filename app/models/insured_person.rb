@@ -1,3 +1,6 @@
 class InsuredPerson < ApplicationRecord
-  validates_presence_of :name, :cpf
+  validates :name, :cpf, presence: true
+  validates :cpf, uniqueness: true
+
+  has_many :policies
 end

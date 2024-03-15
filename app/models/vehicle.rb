@@ -1,3 +1,4 @@
 class Vehicle < ApplicationRecord
-  validates_presence_of :brand, :license_plate, :year, :model
+  validates :brand, :license_plate, :year, :model, presence: true
+  validates :license_plate, uniqueness: true
 end
