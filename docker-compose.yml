@@ -1,5 +1,5 @@
 services:
-  insurance-rest:
+  insurance-rest: &insurance_rest
     build:
       context: ./
       dockerfile: Dockerfile-dev
@@ -11,7 +11,15 @@ services:
       - postgres
     networks:
       - insura_net
-    
+
+  sneakers:
+    <<: *insurance_rest
+    ports:
+      - 3001:3000
+    command: ["rake", "sneakers:run"]
+    networks:
+    - insura_net
+
   postgres:
     image: postgres:14-alpine
     container_name: postgres
