@@ -1,5 +1,6 @@
 services:
   insurance-rest: &insurance_rest
+    container_name: "insurance-rest"
     build:
       context: ./
       dockerfile: Dockerfile-dev
@@ -14,6 +15,7 @@ services:
 
   sneakers:
     <<: *insurance_rest
+    container_name: "sneakers"
     ports:
       - 3001:3000
     command: ["rake", "sneakers:run"]
