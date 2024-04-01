@@ -3,7 +3,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1
   def show
-    render json: @policy.to_json
+    render json: @policy
   end
 
   private
