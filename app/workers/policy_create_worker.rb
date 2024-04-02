@@ -6,7 +6,7 @@ class PolicyCreateWorker
     payload = JSON.parse(payload)
     logger.info "### CREATING POLICY ###"
 
-    PolicyCreateService.new(payload).execute
+    PolicyCreateService.new(payload).execute!
 
     logger.info payload
     ack!

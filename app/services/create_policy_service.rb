@@ -3,9 +3,9 @@ class CreatePolicyService
   @payload = payload.symbolize_keys
   end
 
-  def execute
+  def execute!
     ActiveRecord::Base.transaction do
-    Policy.create(
+    Policy.create!(
         effective_date: @payload[:effective_date],
         expiration_date: @payload[:expiration_date],
         insured_person: {
@@ -20,5 +20,7 @@ class CreatePolicyService
         }
       )
     end
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.info e.message
   end
 end

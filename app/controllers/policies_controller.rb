@@ -3,16 +3,16 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1
   def show
-    render json: @policy
+    render json: @policy, status: :ok
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_policy
       @policy = Policy.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { error: e.message }, status: :not_found
     end
 
-    # Only allow a list of trusted parameters through.
     def policy_params
       params.fetch(:policy, {})
     end

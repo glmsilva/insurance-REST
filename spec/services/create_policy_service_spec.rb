@@ -24,7 +24,7 @@ describe 'Create Policy Service' do
     it 'is successfull' do
       service = CreatePolicyService.new(JSON.parse(payload))
 
-      expect { service.execute }.to change(Policy, :count).by(1)
+      expect { service.execute! }.to change(Policy, :count).by(1)
     end
   end
 
@@ -45,7 +45,7 @@ describe 'Create Policy Service' do
     it 'does not create a policy' do
       service = CreatePolicyService.new(JSON.parse(payload))
 
-      expect { service.execute }.to_not change(Policy, :count)
+      expect { service.execute! }.to_not change(Policy, :count)
     end
   end
 end
