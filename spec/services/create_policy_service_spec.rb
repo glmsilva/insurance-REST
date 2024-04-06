@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Create Policy Service' do
+describe 'Policy Create Service' do
   context 'when attributes are valid' do
     let(:payload) do
       {
@@ -22,7 +22,7 @@ describe 'Create Policy Service' do
     end
 
     it 'is successfull' do
-      service = CreatePolicyService.new(JSON.parse(payload))
+      service = PolicyCreateService.new(JSON.parse(payload))
 
       expect { service.execute! }.to change(Policy, :count).by(1)
     end
@@ -43,8 +43,9 @@ describe 'Create Policy Service' do
 
 
     it 'does not create a policy' do
-      service = CreatePolicyService.new(JSON.parse(payload))
+      service = PolicyCreateService.new(JSON.parse(payload))
 
+      binding.pry
       expect { service.execute! }.to_not change(Policy, :count)
     end
   end
