@@ -7,6 +7,7 @@ class PoliciesController < ApplicationController
   end
 
   private
+
     def set_policy
       @policy = Policy.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
