@@ -45,7 +45,6 @@ describe 'Policy Create Service' do
     it 'does not create a policy' do
       service = PolicyCreateService.new(JSON.parse(payload))
 
-      binding.pry
       expect { service.execute! }.to_not change(Policy, :count)
     end
   end

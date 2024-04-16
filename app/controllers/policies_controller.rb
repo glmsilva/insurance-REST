@@ -1,6 +1,13 @@
 class PoliciesController < ApplicationController
   before_action :set_policy, only: %i[ show ]
 
+  # GET /policies
+  def index
+    @policies = Policy.all
+
+    render json: @policies, status: :ok
+  end
+
   # GET /policies/1
   def show
     render json: @policy, status: :ok
