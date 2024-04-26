@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: Dockerfile-dev
     ports:
-      - 5000:3000
+      - 5000:5000
     volumes:
       - .:/app
     depends_on:
@@ -17,7 +17,7 @@ services:
     <<: *insurance_rest
     container_name: "sneakers"
     ports:
-      - 3001:3000
+      - 5001:5000
     command: ["rake", "sneakers:run"]
     networks:
     - insura_net
