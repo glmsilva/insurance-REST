@@ -15,6 +15,6 @@ RUN useradd guilherme --uid ${USER_ID} --create-home --shel /bin/bash && \
      chown -R guilherme:guilherme .
 
 USER guilherme:guilherme
-EXPOSE 3000
+EXPOSE 5000
 
-CMD ["rails", "s", "-b", "0.0.0.0"]
+CMD ["rails", "s", "-b", "0.0.0.0", "-p", "5000"]
