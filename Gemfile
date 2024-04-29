@@ -10,6 +10,7 @@ gem "pg", "~> 1.1"
 gem "bunny"
 gem "sneakers"
 gem "jwt"
+gem "dotenv"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

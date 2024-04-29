@@ -33,7 +33,9 @@ describe 'Index Policies', type: :request do
         }
       )
 
-      get "/policies"
+      spec_token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
+
+      get "/policies", headers: { 'AUTHORIZATION' => spec_token }
 
       expect(response).to have_http_status(200)
       expect(response.body).to include("Erling Haaland")
@@ -41,4 +43,3 @@ describe 'Index Policies', type: :request do
     end
   end
 end
-

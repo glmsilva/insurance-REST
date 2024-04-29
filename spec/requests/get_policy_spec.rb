@@ -17,7 +17,9 @@ describe "Get Policy", type: :request do
           license_plate: "ABC1D23"
         }
       )
-      get "/policies/#{policy.id}"
+      spec_token = JWT.encode({}, ENV['JWT_SECRET'], 'HS256')
+
+      get "/policies/#{policy.id}", headers: { 'AUTHORIZATION' => spec_token }
 
       expect(response).to have_http_status(200)
     end

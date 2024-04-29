@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_token!
     token = request.headers['authorization'].split(" ").last
-    if JWT.decode(token, 'banana', 'HS256')
+    if JWT.decode(token, ENV['JWT_SECRET'], 'HS256')
       # TODO: fazer o check do usuário que está acessando
       # se existir é autorizado, senão é recusado
 
