@@ -11,6 +11,7 @@ gem "bunny"
 gem "sneakers"
 gem "jwt"
 gem "dotenv"
+gem "stripe"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -45,6 +46,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "pry", "~> 0.14.2"
+  gem "pry-nav"
 end
 
 group :development do
