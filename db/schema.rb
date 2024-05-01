@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_30_170931) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_30_234451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_170931) do
     t.jsonb "vehicle"
     t.jsonb "insured_person"
     t.integer "status", default: 0
+    t.string "payment_link"
   end
 
 end

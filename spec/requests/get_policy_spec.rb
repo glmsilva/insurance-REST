@@ -3,6 +3,30 @@ require 'rails_helper'
 describe "Get Policy", type: :request do
   context "when policy is found" do
     it "responds with success" do
+      Price = Struct.new(:id)
+      PaymentLink = Struct.new(:url)
+      price = Price.new('id_do_price')
+      payment_link = PaymentLink.new('link_do_stripe.com')
+
+      allow(Stripe::Price).to receive(:create).with(
+        {
+          currency: 'brl',
+          product_data: {
+            name: 'Seguro Auto Relabs'
+          },
+          unit_amount: 9999
+        }
+      ).and_return(price)
+
+      allow(Stripe::PaymentLink).to receive(:create).with(
+        {
+          line_items: [{
+          price: price.id,
+          quantity: 1
+          }]
+        }
+      ).and_return(payment_link)
+
       policy = Policy.create!(
         effective_date: "28-03-2024",
         expiration_date: "29-03-2025",

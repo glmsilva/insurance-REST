@@ -21,10 +21,43 @@ describe 'Policy Create Service' do
       }.to_json
     end
 
+    let(:price) do
+      Struct.new(:id)
+    end
+
+    let(:payment_link) do
+      Struct.new(:url)
+    end
+
     it 'is successfull' do
+      Price = Struct.new(:id)
+      PaymentLink = Struct.new(:url)
+      price = Price.new('id_do_price')
+      payment_link = PaymentLink.new('link_do_stripe.com')
+
+      allow(Stripe::Price).to receive(:create).with(
+        {
+          currency: 'brl',
+          product_data: {
+            name: 'Seguro Auto Relabs'
+          },
+          unit_amount: 9999
+        }
+      ).and_return(price)
+
+      allow(Stripe::PaymentLink).to receive(:create).with(
+        {
+          line_items: [{
+          price: price.id,
+          quantity: 1
+          }]
+        }
+      ).and_return(payment_link)
+
       service = PolicyCreateService.new(JSON.parse(payload))
 
       expect { service.execute! }.to change(Policy, :count).by(1)
+      expect(Policy.all.last.payment_link).to include('stripe')
     end
   end
 
