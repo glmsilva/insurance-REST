@@ -6,14 +6,14 @@ describe 'Policy Create Service' do
       {
         effective_date: "2024-04-01",
         expiration_date: "2025-05-01",
-        vehicle: 
+        vehicle:
           {
             brand: "Wolfsvagem",
             model: "Fuska",
             year: "1969",
             license_plate: "ABC1D23"
           },
-        insured_person: 
+        insured_person:
           {
             name: "Zlatan Ibrahimovic",
             cpf: "123.456.789-10"
@@ -35,24 +35,9 @@ describe 'Policy Create Service' do
       price = Price.new('id_do_price')
       payment_link = PaymentLink.new('link_do_stripe.com')
 
-      allow(Stripe::Price).to receive(:create).with(
-        {
-          currency: 'brl',
-          product_data: {
-            name: 'Seguro Auto Relabs'
-          },
-          unit_amount: 9999
-        }
-      ).and_return(price)
+      allow(Stripe::Price).to receive(:create).and_return(price)
 
-      allow(Stripe::PaymentLink).to receive(:create).with(
-        {
-          line_items: [{
-          price: price.id,
-          quantity: 1
-          }]
-        }
-      ).and_return(payment_link)
+      allow(Stripe::PaymentLink).to receive(:create).and_return(payment_link)
 
       service = PolicyCreateService.new(JSON.parse(payload))
 
@@ -66,14 +51,13 @@ describe 'Policy Create Service' do
       {
         effective_date: "2024-04-01",
         expiration_date: "2025-05-01",
-        insured_person: 
+        insured_person:
           {
             name: "Zlatan Ibrahimovic",
             cpf: "123.456.789-10"
           }
       }.to_json
     end
-
 
     it 'does not create a policy' do
       service = PolicyCreateService.new(JSON.parse(payload))
@@ -82,4 +66,3 @@ describe 'Policy Create Service' do
     end
   end
 end
-

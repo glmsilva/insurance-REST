@@ -16,7 +16,7 @@ class Policy < ApplicationRecord
     price = Stripe::Price.create({
       currency: 'brl',
       product_data: {
-        name: 'Seguro Auto Relabs'
+        name: "Seguro Auto Relabs - Apólice #{id}"
       },
       unit_amount: 9999
     })
@@ -25,7 +25,11 @@ class Policy < ApplicationRecord
       line_items: [{
         price: price.id,
         quantity: 1,
-      }]
+      }],
+      metadata: {
+        policy_id: id,
+        insured_person_name: insured_person["name"]
+      }
     })
 
     self.update_column(:payment_link, payment_link.url)
