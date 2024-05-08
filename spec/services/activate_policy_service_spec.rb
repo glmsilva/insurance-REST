@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Policy Payment Service' do
+describe 'Activate Policy Service' do
   context 'when payment completed' do
     let(:policy) do
       Policy.create!(
